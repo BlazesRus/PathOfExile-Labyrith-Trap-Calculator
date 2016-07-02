@@ -1,0 +1,110 @@
+<html>
+<head>
+	<title>Labyrinth Trap Damage Calculations</title>
+	<script>
+	function CalculatePoolPercent() {
+		document.LabyrinthTrapCalc.HPPercent.value = parseInt(document.LabyrinthTrapCalc.HPPool.value)/(parseInt(document.LabyrinthTrapCalc.HPPool.value) + parseInt(document.LabyrinthTrapCalc.ESPool.value))*100;
+		document.LabyrinthTrapCalc.ESPercent.value = parseInt(document.LabyrinthTrapCalc.ESPool.value)/ (parseInt(document.LabyrinthTrapCalc.HPPool.value) + parseInt(document.LabyrinthTrapCalc.ESPool.value))*100;
+	}
+	function CalculateOtherPercent_FromHP()
+	{
+		document.LabyrinthTrapCalc.HPPool.value = document.LabyrinthTrapCalc.HPPercent.value;
+		document.LabyrinthTrapCalc.ESPercent.value = 100 - document.LabyrinthTrapCalc.HPPercent.value;
+		document.LabyrinthTrapCalc.ESPool.value = document.LabyrinthTrapCalc.ESPercent.value;
+		//-------------------------------------------------------------------------------------------------------------------------------
+		document.LabyrinthTrapCalc.NumberOfHPHits.value = parseFloat(document.LabyrinthTrapCalc.HPPercent.value)/25;
+		document.LabyrinthTrapCalc.NumberOfESHits.value = parseFloat(document.LabyrinthTrapCalc.ESPercent.value)/15;
+		document.LabyrinthTrapCalc.PercentHPDamage.value = 100/parseFloat(document.LabyrinthTrapCalc.NumberOfHPHits.value);
+		document.LabyrinthTrapCalc.PercentESDamage.value = 100/parseFloat(document.LabyrinthTrapCalc.NumberOfESHits.value);
+		var mindOverMatterHits = parseFloat(document.LabyrinthTrapCalc.NumberOfHPHits.value)/.7;
+		var mindOverMatterDamage = 100/parseFloat(mindOverMatterHits);
+		document.LabyrinthTrapCalc.NumberOfMindOverMatterHits.value = mindOverMatterDamage + " (" + mindOverMatterHits + ")";
+	}
+	function CalculateOtherPercent_FromES()
+	{ 
+		document.LabyrinthTrapCalc.ESPool.value = document.LabyrinthTrapCalc.ESPercent.value;
+		document.LabyrinthTrapCalc.HPPercent.value = 100 - document.LabyrinthTrapCalc.ESPercent.value;
+		document.LabyrinthTrapCalc.HPPool.value = document.LabyrinthTrapCalc.HPPercent.value;
+		//-------------------------------------------------------------------------------------------------------------------------------
+		document.LabyrinthTrapCalc.NumberOfHPHits.value = parseFloat(document.LabyrinthTrapCalc.HPPercent.value)/25;
+		document.LabyrinthTrapCalc.NumberOfESHits.value = parseFloat(document.LabyrinthTrapCalc.ESPercent.value)/15;
+		document.LabyrinthTrapCalc.PercentHPDamage.value = 100/parseFloat(document.LabyrinthTrapCalc.NumberOfHPHits.value);
+		document.LabyrinthTrapCalc.PercentESDamage.value = 100/parseFloat(document.LabyrinthTrapCalc.NumberOfESHits.value);
+		var mindOverMatterHits = parseFloat(document.LabyrinthTrapCalc.NumberOfHPHits.value)/.7;
+		var mindOverMatterDamage = 100/parseFloat(mindOverMatterHits);
+		document.LabyrinthTrapCalc.NumberOfMindOverMatterHits.value = mindOverMatterDamage + " (" + mindOverMatterHits + ")";
+	}
+	function CalculateTrapDamage_FromPoolPercent() {
+		CalculatePoolPercent();
+		document.LabyrinthTrapCalc.NumberOfHPHits.value = parseFloat(document.LabyrinthTrapCalc.HPPercent.value)/25;
+		document.LabyrinthTrapCalc.NumberOfESHits.value = parseFloat(document.LabyrinthTrapCalc.ESPercent.value)/15;
+		document.LabyrinthTrapCalc.PercentHPDamage.value = 100/parseFloat(document.LabyrinthTrapCalc.NumberOfHPHits.value);
+		document.LabyrinthTrapCalc.PercentESDamage.value = 100/parseFloat(document.LabyrinthTrapCalc.NumberOfESHits.value);
+		var mindOverMatterHits = parseFloat(document.LabyrinthTrapCalc.NumberOfHPHits.value)/.7;
+		var mindOverMatterDamage = 100/parseFloat(mindOverMatterHits);
+		document.LabyrinthTrapCalc.NumberOfMindOverMatterHits.value = mindOverMatterDamage + " (" + mindOverMatterHits + ")";
+	}
+	</script>
+	<style>
+		td, th {
+			border: solid 1px black;
+		}
+		input 
+		{
+			width: 100%;
+			padding: 10px;
+			margin: 0px;
+			box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+		}
+	</style> 
+
+</head>
+
+<body>
+
+	<h3>Notes:Effective damage to shields is 0.6x damage done to hp.</h3>
+	<br>
+	Number of Trap hits refers to number of 25% effective hp damage from spike traps or similar. Mind of matter applied implies enough mana to take full mana damage from hit(Mind over matter applies 30% damage to hp to mana instead if have enough mana)
+	<br>
+	<table>
+		<tr><td>Labyrinth Trap Damage Calculations</td></tr>
+		<tr>
+			<td>CombinedPool hp percent</td>
+			<td>CombinedPool ES percent)</td>
+			<td>PercentDamage to hp pool</td>
+			<td>PercentDamage to ES pool</td>
+			<td>Pool's Effective Number of Trap Hits to HP</td>
+			<td>Pool's Effective Number of Trap Hits to ES</td>
+			<td>Damage to hp with MindOverMatter Applied(Number of hits possible)</td>
+		</tr>
+		<tr><td>100</td><td>0</td><td>25</td><td>0</td><td>4</td><td>0</td><td>17.5(5.714)</td></tr>
+		<tr><td>0</td><td>100</td><td>0</td><td>15</td><td>0</td><td>6.667</td><td>0(0)</td></tr>
+		<tr><td>50</td><td>50</td><td>50</td><td>30</td><td>2</td><td>3.333</td><td>35(2.857)</td></tr>
+		<tr><td>75</td><td>25</td><td>33.333</td><td>60</td><td>3</td><td>1.667</td><td>23.333(4.286)</td></tr>
+		<tr><td>25</td><td>75</td><td>100</td><td>20</td><td>1</td><td>5</td><td>70(1.429)</td></tr>
+		<tr><td>??</td><td>??</td><td>??</td><td>??</td><td>??</td><td>??</td><td>??</td></tr>
+	</table>
+
+<br>
+	<form name="LabyrinthTrapCalc">
+		<table>
+			<tr><td>HPPool:</td><td><input name="HPPool" type="number" min="0" max="100000" value="1" onchange="CalculateTrapDamage_FromPoolPercent()"></td><td>ESPool:</td><td><input name="ESPool" type="number" min="0" max="100000" value="1" onchange="CalculateTrapDamage_FromPoolPercent()"></td></tr>
+			<tr><td>CombinedPool HPPercent::</td><td><input name="HPPercent" type="number" min="0" max="100" value="50" onchange="CalculateOtherPercent_FromHP()"></td><td>CombinedPool ESPercent:</td><td><input name="ESPercent" type="number" min="0" max="100" value="50" onchange="CalculateOtherPercent_FromES()"></td></tr>
+		</table>
+		<br>
+		<table>
+			<tr><td>Labyrinth Trap Damage Based on above pools</td></tr>
+			<tr>
+				<td>PercentDamage to hp pool</td>
+				<td>PercentDamage to ES pool</td>
+				<td>Pool's Effective Number of Trap Hits to HP</td>
+				<td>Pool's Effective Number of Trap Hits to ES</td>
+				<td>Damage to hp with MindOverMatter Applied(Number of hits possible)</td>
+			</tr>
+			<tr><td><input name="PercentHPDamage" value="50"></td><td><input name="PercentESDamage" value="30"></td><td><input name="NumberOfHPHits" value="2"></td><td><input name="NumberOfESHits" value="3.333"></td><td><input name="NumberOfMindOverMatterHits" value="35(2.857)"></td></tr>
+		</table>
+	</form>
+</body>
+</html>
