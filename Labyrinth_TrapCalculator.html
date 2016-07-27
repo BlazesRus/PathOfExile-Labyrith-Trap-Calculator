@@ -2,47 +2,60 @@
 <head>
 	<title>Labyrinth Trap Damage Calculations</title>
 	<script>
+	//function UnHide_Observations(){}
+	function CalculatePhysResist()
+	{
+		//Formulas from http://pathofexile.gamepedia.com/Armour/math
+		//document.ArmourCalculator.ArmourValue.value
+		//document.ArmourCalculator.EnemyDamage.value
+		//Damage Reduction before cap and additional Phys resists
+		//var DamageReduction = parseInt(document.POECalc.ArmourValue.value)/(parseInt(document.POECalc.ArmourValue.value)+10*parseInt(document.POECalc.EnemyDamage.value));
+		document.POECalc.DRBeforeCap.value = 1;//parseFloat(DamageReduction);
+		//Phys Resist percent before 90% cap and additional PhysResist
+		//var PhysResistBeforeCap = 
+		//Limit to total 90% reduction after calculations
+	}
 	function CalculatePoolPercent() {
-		document.LabyrinthTrapCalc.HPPercent.value = parseInt(document.LabyrinthTrapCalc.HPPool.value)/(parseInt(document.LabyrinthTrapCalc.HPPool.value) + parseInt(document.LabyrinthTrapCalc.ESPool.value))*100;
-		document.LabyrinthTrapCalc.ESPercent.value = parseInt(document.LabyrinthTrapCalc.ESPool.value)/ (parseInt(document.LabyrinthTrapCalc.HPPool.value) + parseInt(document.LabyrinthTrapCalc.ESPool.value))*100;
+		document.POECalc.HPPercent.value = parseInt(document.POECalc.HPPool.value)/(parseInt(document.POECalc.HPPool.value) + parseInt(document.POECalc.ESPool.value))*100;
+		document.POECalc.ESPercent.value = parseInt(document.POECalc.ESPool.value)/ (parseInt(document.POECalc.HPPool.value) + parseInt(document.POECalc.ESPool.value))*100;
 	}
 	function CalculateOtherPercent_FromHP()
 	{
-		document.LabyrinthTrapCalc.HPPool.value = document.LabyrinthTrapCalc.HPPercent.value;
-		document.LabyrinthTrapCalc.ESPercent.value = 100 - document.LabyrinthTrapCalc.HPPercent.value;
-		document.LabyrinthTrapCalc.ESPool.value = document.LabyrinthTrapCalc.ESPercent.value;
+		document.POECalc.HPPool.value = document.POECalc.HPPercent.value;
+		document.POECalc.ESPercent.value = 100 - document.POECalc.HPPercent.value;
+		document.POECalc.ESPool.value = document.POECalc.ESPercent.value;
 		//-------------------------------------------------------------------------------------------------------------------------------
-		document.LabyrinthTrapCalc.NumberOfHPHits.value = parseFloat(document.LabyrinthTrapCalc.HPPercent.value)/25;
-		document.LabyrinthTrapCalc.NumberOfESHits.value = parseFloat(document.LabyrinthTrapCalc.ESPercent.value)/15;
-		document.LabyrinthTrapCalc.PercentHPDamage.value = 100/parseFloat(document.LabyrinthTrapCalc.NumberOfHPHits.value);
-		document.LabyrinthTrapCalc.PercentESDamage.value = 100/parseFloat(document.LabyrinthTrapCalc.NumberOfESHits.value);
-		var mindOverMatterHits = parseFloat(document.LabyrinthTrapCalc.NumberOfHPHits.value)/.7;
+		document.POECalc.NumberOfHPHits.value = parseFloat(document.POECalc.HPPercent.value)/25;
+		document.POECalc.NumberOfESHits.value = parseFloat(document.POECalc.ESPercent.value)/15;
+		document.POECalc.PercentHPDamage.value = 100/parseFloat(document.POECalc.NumberOfHPHits.value);
+		document.POECalc.PercentESDamage.value = 100/parseFloat(document.POECalc.NumberOfESHits.value);
+		var mindOverMatterHits = parseFloat(document.POECalc.NumberOfHPHits.value)/.7;
 		var mindOverMatterDamage = 100/parseFloat(mindOverMatterHits);
-		document.LabyrinthTrapCalc.NumberOfMindOverMatterHits.value = mindOverMatterDamage + " (" + mindOverMatterHits + ")";
+		document.POECalc.NumberOfMindOverMatterHits.value = mindOverMatterDamage + " (" + mindOverMatterHits + ")";
 	}
 	function CalculateOtherPercent_FromES()
 	{ 
-		document.LabyrinthTrapCalc.ESPool.value = document.LabyrinthTrapCalc.ESPercent.value;
-		document.LabyrinthTrapCalc.HPPercent.value = 100 - document.LabyrinthTrapCalc.ESPercent.value;
-		document.LabyrinthTrapCalc.HPPool.value = document.LabyrinthTrapCalc.HPPercent.value;
+		document.POECalc.ESPool.value = document.POECalc.ESPercent.value;
+		document.POECalc.HPPercent.value = 100 - document.POECalc.ESPercent.value;
+		document.POECalc.HPPool.value = document.POECalc.HPPercent.value;
 		//-------------------------------------------------------------------------------------------------------------------------------
-		document.LabyrinthTrapCalc.NumberOfHPHits.value = parseFloat(document.LabyrinthTrapCalc.HPPercent.value)/25;
-		document.LabyrinthTrapCalc.NumberOfESHits.value = parseFloat(document.LabyrinthTrapCalc.ESPercent.value)/15;
-		document.LabyrinthTrapCalc.PercentHPDamage.value = 100/parseFloat(document.LabyrinthTrapCalc.NumberOfHPHits.value);
-		document.LabyrinthTrapCalc.PercentESDamage.value = 100/parseFloat(document.LabyrinthTrapCalc.NumberOfESHits.value);
-		var mindOverMatterHits = parseFloat(document.LabyrinthTrapCalc.NumberOfHPHits.value)/.7;
+		document.POECalc.NumberOfHPHits.value = parseFloat(document.POECalc.HPPercent.value)/25;
+		document.POECalc.NumberOfESHits.value = parseFloat(document.POECalc.ESPercent.value)/15;
+		document.POECalc.PercentHPDamage.value = 100/parseFloat(document.POECalc.NumberOfHPHits.value);
+		document.POECalc.PercentESDamage.value = 100/parseFloat(document.POECalc.NumberOfESHits.value);
+		var mindOverMatterHits = parseFloat(document.POECalc.NumberOfHPHits.value)/.7;
 		var mindOverMatterDamage = 100/parseFloat(mindOverMatterHits);
-		document.LabyrinthTrapCalc.NumberOfMindOverMatterHits.value = mindOverMatterDamage + " (" + mindOverMatterHits + ")";
+		document.POECalc.NumberOfMindOverMatterHits.value = mindOverMatterDamage + " (" + mindOverMatterHits + ")";
 	}
 	function CalculateTrapDamage_FromPoolPercent() {
 		CalculatePoolPercent();
-		document.LabyrinthTrapCalc.NumberOfHPHits.value = parseFloat(document.LabyrinthTrapCalc.HPPercent.value)/25;
-		document.LabyrinthTrapCalc.NumberOfESHits.value = parseFloat(document.LabyrinthTrapCalc.ESPercent.value)/15;
-		document.LabyrinthTrapCalc.PercentHPDamage.value = 100/parseFloat(document.LabyrinthTrapCalc.NumberOfHPHits.value);
-		document.LabyrinthTrapCalc.PercentESDamage.value = 100/parseFloat(document.LabyrinthTrapCalc.NumberOfESHits.value);
-		var mindOverMatterHits = parseFloat(document.LabyrinthTrapCalc.NumberOfHPHits.value)/.7;
+		document.POECalc.NumberOfHPHits.value = parseFloat(document.POECalc.HPPercent.value)/25;
+		document.POECalc.NumberOfESHits.value = parseFloat(document.POECalc.ESPercent.value)/15;
+		document.POECalc.PercentHPDamage.value = 100/parseFloat(document.POECalc.NumberOfHPHits.value);
+		document.POECalc.PercentESDamage.value = 100/parseFloat(document.POECalc.NumberOfESHits.value);
+		var mindOverMatterHits = parseFloat(document.POECalc.NumberOfHPHits.value)/.7;
 		var mindOverMatterDamage = 100/parseFloat(mindOverMatterHits);
-		document.LabyrinthTrapCalc.NumberOfMindOverMatterHits.value = mindOverMatterDamage + " (" + mindOverMatterHits + ")";
+		document.POECalc.NumberOfMindOverMatterHits.value = mindOverMatterDamage + " (" + mindOverMatterHits + ")";
 	}
 	</script>
 	<style>
@@ -63,12 +76,21 @@
 </head>
 
 <body>
-
+	<table hidden="true">
+		<tr>
+		<td>Unhide Labyrinth Trap Damage Calculations</td>
+		<td>Unhide Trap Damage observations</td>
+		<td>List of Possible Chests from Labyrinth</td>
+		</tr>
+	</table>
 	<h3>Notes:Effective damage to shields is 0.6x damage done to hp.</h3>
 	<br>
 	Number of Trap hits refers to number of 25% effective hp damage from spike traps or similar. Mind of matter applied implies enough mana to take full mana damage from hit(Mind over matter applies 30% damage to hp to mana instead if have enough mana)
 	<br>
-	<table>
+	Spike pillars and blade sentinals deal full dot damage, thus it won't use mind over matter for those trap damage calcualtions(chaos debuff from darts and bleed from spike pits skip mind over matter as well).
+	The non-debuff parts of spike pit traps and dart traps use mind over matter for hp damage.
+	<br>
+	<table hidden="true">
 		<tr><td>Labyrinth Trap Damage Calculations</td></tr>
 		<tr>
 			<td>CombinedPool hp percent</td>
@@ -88,14 +110,14 @@
 	</table>
 
 <br>
-	<form name="LabyrinthTrapCalc">
+	<form name="POECalc">
 		<table>
 			<tr><td>HPPool:</td><td><input name="HPPool" type="number" min="0" max="100000" value="1" onchange="CalculateTrapDamage_FromPoolPercent()"></td><td>ESPool:</td><td><input name="ESPool" type="number" min="0" max="100000" value="1" onchange="CalculateTrapDamage_FromPoolPercent()"></td></tr>
 			<tr><td>CombinedPool HPPercent::</td><td><input name="HPPercent" type="number" min="0" max="100" value="50" onchange="CalculateOtherPercent_FromHP()"></td><td>CombinedPool ESPercent:</td><td><input name="ESPercent" type="number" min="0" max="100" value="50" onchange="CalculateOtherPercent_FromES()"></td></tr>
 		</table>
 		<br>
 		<table>
-			<tr><td>Labyrinth Trap Damage Based on above pools</td></tr>
+			<tr><td><h4>Labyrinth Trap Damage Based on above pools</h4></td></tr>
 			<tr>
 				<td>PercentDamage to hp pool</td>
 				<td>PercentDamage to ES pool</td>
@@ -105,6 +127,49 @@
 			</tr>
 			<tr><td><input name="PercentHPDamage" value="50"></td><td><input name="PercentESDamage" value="30"></td><td><input name="NumberOfHPHits" value="2"></td><td><input name="NumberOfESHits" value="3.333"></td><td><input name="NumberOfMindOverMatterHits" value="35(2.857)"></td></tr>
 		</table>
+		<table>
+			<tr><h4>Phys Damage calculations based on armour vs enemy phys damage(Table functions not working yet)</h4></tr>
+			<tr><td>Armour Value:</td><td><input name="ArmourValue" type="number" min="0" max="100000" value="0" onchange="CalculatePhysResist()"></td></tr>
+			<tr><td>Enemy Phys Damage:</td><td><input name="EnemyDamage" type="number" min="0" max="99999" value="100" onchange="CalculatePhysResist()"></td></tr>
+			<tr><td>Additional(Non-Armour) Phys Resist Percent:</td><td><input name="AdditionalPhysResist" min="-90" max="90" value="0" onchange="CalculatePhysResist()"></td></tr>
+			<tr><td>Damage Reduction based on Based on Armour Value before Caps:</td><td><input name="DRBeforeCap" value="0"></td></tr>
+			<tr><td>Calculated Damage Taken:</td><td><input name="TakenPhysDamage" value="100"></td><td>Phys Resist Percent  Granted from Armour:</td><td><input name="PhysResist" min="0" max="90" value="0"></td></tr>
+			<tr><td>Total amount of Damage Reduced:</td><td><input name="DRBeforeCap" type="number" value="0" disabled></td></tr>
+		</table>
 	</form>
+	<p hidden="true">
+		Trap damage observations:<br>
+		<table>
+		<tr><td>TrapName</td><td>Trap Damage observations</td></tr>
+		<tr><td>Dart Trap</td>
+		<td>
+		With hp of 1064 and ES value of 3420(23.729% hp 76.271% Es pool zero percent chaos resist), dart does chaos/poison dot(plus slow debuff) of about 121(11.372180451127819548872180451128% hp pool or about 2.698483496877787689562890276539% of total pool damage) of 1 sec time to hp and ES damage of around 20%  or so to hp. <br>(25% effective damage(same amount as spike pit trap) plus chaos/poison+slow debuff)
+		</td>
+		</tr>
+		</table>
+	</p>
+	<table hidden="true">
+		<tr><td><h3>List of Possible Chests from Labyrinth(Copied from wiki)</h3></td></tr>
+		<tr><td>Name</td><td>Location</td><td>Notes</td></tr>
+		<tr><td> Silver Chest </td><td></td><td>Contains a Silver Key</td></tr>
+		<tr><td> Golden Chest </td><td></td><td>Contains a Golden Key</td></tr>
+		<tr><td> Curious Lockbox </td><td></td> <td>Contains a Treasure Key</td></tr>
+		<tr><td> Izaro's Treasure </td><td> The end of the labyrinth </td><td> Can be opened with a Treasure Key</td></tr>
+		<tr><td> Decorative Chest </td><td> Forgotten Reliquary </td><td> Contains one of Trinkets for boss fight</td></tr>
+		<tr><td> Intricate Locker </td><td> Silver Cache </td><td> Always contains a labyrinth unique item</td></tr>
+		<tr><td> Emperor's Charts </td><td></td><td>[[Maps]]</td></tr>
+		<tr><td> Emperor's Gifts </td><td> Silver Cache </td><td> Assorted items, higher rarity and quantity</td></tr>
+		<tr><td> Emperor's Trove </td><td></td><td>[[Jewelry]], [[jewels]] and [[currency]]</td></tr>
+		<tr><td> Emperor's Vault </td><td> Silver Cache </td><td> [[Jewelry]], [[jewels]] and [[currency]]</td></tr>
+		<tr><td> Guard Vault </td><td> Behind the locked door with puzzle </td><td> Assorted items (probably higher rarity and quantity)</td></tr>
+		<tr><td> Hidden Chest </td><td></td><td>Assorted items </td></tr>
+		<tr><td> Hidden Coffer </td><td></td><td>Assorted items </td></tr>
+		<tr><td> Labyrinth Trove </td><td></td><td>Assorted items (probably higher rarity and quantity) </td></tr>
+		<tr><td> Supply Cache </td><td></td><td>Assorted items </td></tr>
+		<tr><td> Battle Supplies </td><td></td><td>Assorted items </td></tr>
+		<tr><td> Ascendant's Treasure </td><td></td> <td>Assorted items </td></tr>
+		<tr><td> War Spoils </td><td> Silver Cache </td><td> Assorted items (probably higher quantity) </td></tr>
+		<tr><td>Warmonger's Cache </td><td> Silver cache </td><td> [[Weapons]] and [[currency]]</td></tr>
+	</table>
 </body>
 </html>
